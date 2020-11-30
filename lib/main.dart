@@ -4,44 +4,187 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_app/login_page.dart';
 import 'package:flutter/src/material/icons.dart';
 
-
 void main() => runApp(MyApp());
+
+
+// MediaQueryResponsive app
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          leading: Icon(
-            Icons.adb,
-            color: Colors.white,
-          ),
-          title: Text(
-            'Appbar Example',
-            style: TextStyle(color: Colors.white),
-          ),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.settings), onPressed: () {}),
-            IconButton(icon: Icon(Icons.exit_to_app), onPressed: () {})
-          ],
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xff0096ff), Color(0xff6610f)],
-                  begin: FractionalOffset.topLeft,
-                  end: FractionalOffset.bottomRight,
-                ),
-                image: DecorationImage(
-                    image: AssetImage("images/pattern1.png"),
-                    fit: BoxFit.none,
-                    repeat: ImageRepeat.repeat)),
-          ),
-        ),
-      ),
+      home: MainPage(),
     );
   }
 }
+
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Latihan MediaQuery'),
+        ),
+
+        body: (MediaQuery.of(context).orientation == Orientation.portrait)
+            ? Column(children: children())
+            : Row(
+                children: children(),
+              ),
+        // body: Container(
+        //   // color: Colors.amber,
+        //   // width: MediaQuery.of(context).size.width / 3,
+        //   // height: MediaQuery.of(context).size.height / 2,
+        //
+        // ),
+      ),
+    );
+  }
+
+  List<Widget> children() {
+    return <Widget>[
+      Container(
+        color: Colors.red,
+        height: 100,
+        width: 100,
+      ),
+      Container(
+        color: Colors.blue,
+        height: 100,
+        width: 100,
+      ),
+      Container(
+        color: Colors.amber,
+        height: 100,
+        width: 100,
+      )
+    ];
+  }
+}
+
+// materi tengtang textField Decoration
+
+// class MyApp extends StatefulWidget {
+//   @override
+//   _MyAppState createState() => _MyAppState();
+// }
+
+// class _MyAppState extends State<MyApp> {
+//   TextEditingController controller = TextEditingController();
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(title: Text('latihan Text Field')),
+//         body: Container(
+//           margin: EdgeInsets.all(10),
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.spaceAround,
+//             children: <Widget>[
+//               TextField(
+//                 // tampilan seperti menampilkan password
+//                 // obscureText: true,
+
+//                 // menggunakan maxLength
+
+//                 decoration: InputDecoration(
+//                   //border:InputBorder.none
+//                   fillColor: Colors.lightBlue[50],
+//                   filled: true,
+//                   suffix: Container(height:5,width:5,color:Colors.red),
+//                   icon: Icon(Icons.adb),
+//                   prefixIcon: Icon(Icons.person),
+//                   prefixText: "Name :",
+//                   labelText: "Nama Lengkap : ",
+//                   hintText: "Isi Nama lengkap loh..",
+//                   hintStyle:TextStyle( fontSize: 12 ),
+//                   prefixStyle: TextStyle(color:Colors.blue,fontWeight: FontWeight.bold),
+//                   border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))
+//                 ),
+//                 maxLength: 10,
+//                 onChanged: (value){
+//                   setState(() {
+
+//                   });
+//                 },
+//                 controller: controller,
+//               ),
+//               Text(controller.text)
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// Materi Card
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//           backgroundColor: Colors.green,
+//           body: Container(
+//               margin: EdgeInsets.all(10),
+//               child: ListView(children: <Widget>[
+//                 buildCard(Icons.account_box,'kontak'),
+//                 buildCard(Icons.add_call,'phone')
+//               ]))),
+//     );
+//   }
+
+//   Card buildCard(IconData iconData,String text) {
+//     return Card(
+//                 elevation: 5,
+//                   child: Row(
+//                 children: <Widget>[
+//                   Container(
+//                       margin: EdgeInsets.all(5),
+//                       child: Icon(iconData),color: Colors.amber,),
+//                   Text(text),
+//                 ],
+//               ));
+//   }
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           leading: Icon(
+//             Icons.adb,
+//             color: Colors.white,
+//           ),
+//           title: Text(
+//             'Appbar Example',
+//             style: TextStyle(color: Colors.white),
+//           ),
+//           actions: <Widget>[
+//             IconButton(icon: Icon(Icons.settings), onPressed: () {}),
+//             IconButton(icon: Icon(Icons.exit_to_app), onPressed: () {})
+//           ],
+//           flexibleSpace: Container(
+//             decoration: BoxDecoration(
+//                 gradient: LinearGradient(
+//                   colors: [Color(0xff0096ff), Color(0xff6610f)],
+//                   begin: FractionalOffset.topLeft,
+//                   end: FractionalOffset.bottomRight,
+//                 ),
+//                 image: DecorationImage(
+//                     image: AssetImage("images/pattern1.png"),
+//                     fit: BoxFit.none,
+//                     repeat: ImageRepeat.repeat)),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 // pengunaan Navigasi multipage/Screen
 

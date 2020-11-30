@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/main_page.dart';
-import 'package:flutter_app/main_page.dart';
+
+
 
 class Login_page extends StatelessWidget {
   @override
