@@ -1,340 +1,294 @@
-import 'dart:math';
+// import 'dart:math';
+
+import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 //import 'package:flutter_app/login_page.dart';
 import 'package:flutter/src/material/icons.dart';
+import 'package:flutter/src/widgets/container.dart';
 
-void main() => runApp(MyApp());
-
-
-// MediaQueryResponsive app
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_)=>runApp(MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MainPage(),
     );
   }
 }
 
 class MainPage extends StatelessWidget {
+  double getSmallDiameter(BuildContext context) =>
+      MediaQuery.of(context).size.width * 2 / 3;
+  double getBigDiameter(BuildContext context) =>
+      MediaQuery.of(context).size.width * 7 / 8;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Latihan MediaQuery'),
+    return Scaffold(
+      backgroundColor: Color(0xFFEEEEEE),
+      body: Stack(children: <Widget>[
+        Positioned(
+          right: -getSmallDiameter(context) / 3,
+          top: -getSmallDiameter(context) / 3,
+          child: Container(
+            width: getSmallDiameter(context),
+            height: getSmallDiameter(context),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                    colors: [Color(0xFFB226B2), Color(0xFFFF6DA7)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter)),
+          ),
         ),
-
-        body: (MediaQuery.of(context).orientation == Orientation.portrait)
-            ? Column(children: children())
-            : Row(
-                children: children(),
+        Positioned(
+          left: -getBigDiameter(context) / 4,
+          top: -getBigDiameter(context) / 4,
+          child: Container(
+            child: Center(
+                child: Text(
+              'dribble',
+              style: TextStyle(
+                  fontSize: 30, color: Colors.white, fontFamily: "Pacifico"),
+            )),
+            width: getBigDiameter(context),
+            height: getBigDiameter(context),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                    colors: [Color(0xFFB226B2), Color(0xFFFF4891)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter)),
+          ),
+        ),
+        Positioned(
+            right: -getBigDiameter(context) / 2,
+            bottom: -getBigDiameter(context) / 2,
+            child: Container(
+              width: getBigDiameter(context),
+              height: getBigDiameter(context),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFFF3E9EE),
               ),
-        // body: Container(
-        //   // color: Colors.amber,
-        //   // width: MediaQuery.of(context).size.width / 3,
-        //   // height: MediaQuery.of(context).size.height / 2,
-        //
-        // ),
-      ),
+            )),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: ListView(children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              margin: EdgeInsets.fromLTRB(20, 300, 20, 10),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 25),
+              child: Column(children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(
+                      icon: Icon(
+                        Icons.email,
+                        color: Color(0xFFFF4891),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFFF4891)),
+                      ),
+                      labelText: "Email",
+                      labelStyle: TextStyle(color: Color(0xFFFF4891))),
+                ),
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                      icon: Icon(
+                        Icons.vpn_key,
+                        color: Color(0xFFFF4891),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFFF4891)),
+                      ),
+                      labelText: "Password",
+                      labelStyle: TextStyle(color: Color(0xFFFF4891))),
+                ),
+              ]),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 20, 20),
+                  child: Text("FORGET PASSWORD ?",
+                      style:
+                          TextStyle(color: Color(0xFFFF4891), fontSize: 11))),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 0, 20, 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  SizedBox(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Container( 
+                      child: Material(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(20),
+                          splashColor: Colors.amber,
+                          onTap: (){},
+                          child: Center(child: Text('SIGN IN',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)),
+                        ),
+                      ),
+                    decoration:BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                     gradient: LinearGradient(
+                     colors: [Color(0xFFB226B2), Color(0xFFFF4891)],
+                     begin: Alignment.topCenter,
+                     end: Alignment.bottomCenter)
+                    )),
+                  ),
+                  FloatingActionButton(
+                    mini: true,
+                    elevation: 0,
+                    child: Image(image: NetworkImage('https://i.pinimg.com/originals/d2/e5/35/d2e5359f8402cb8d3d7b22c463f9013b.png')),
+                    onPressed: (){}),
+                     FloatingActionButton(
+                       backgroundColor: Colors.white,
+                    mini: true,
+                    elevation: 0,
+                    child: Image(image: NetworkImage('https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-logo-vector-png-clipart-1.png')),
+                    onPressed: (){}),
+                  
+                ],
+              ),
+             
+            ),
+             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+               Text('DONT HAVE AN ACCOUNT ? ',style: TextStyle(color: Colors.grey,fontSize: 11,fontWeight: FontWeight.w500)),
+               Text('SIGN UP ',style: TextStyle(color: Color(0xFFFF4891),fontSize: 11,fontWeight: FontWeight.w900))
+                
+              ],)
+          ]),
+        )
+      ]),
     );
-  }
-
-  List<Widget> children() {
-    return <Widget>[
-      Container(
-        color: Colors.red,
-        height: 100,
-        width: 100,
-      ),
-      Container(
-        color: Colors.blue,
-        height: 100,
-        width: 100,
-      ),
-      Container(
-        color: Colors.amber,
-        height: 100,
-        width: 100,
-      )
-    ];
   }
 }
 
-// materi tengtang textField Decoration
-
-// class MyApp extends StatefulWidget {
-//   @override
-//   _MyAppState createState() => _MyAppState();
-// }
-
-// class _MyAppState extends State<MyApp> {
-//   TextEditingController controller = TextEditingController();
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(title: Text('latihan Text Field')),
-//         body: Container(
-//           margin: EdgeInsets.all(10),
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.spaceAround,
-//             children: <Widget>[
-//               TextField(
-//                 // tampilan seperti menampilkan password
-//                 // obscureText: true,
-
-//                 // menggunakan maxLength
-
-//                 decoration: InputDecoration(
-//                   //border:InputBorder.none
-//                   fillColor: Colors.lightBlue[50],
-//                   filled: true,
-//                   suffix: Container(height:5,width:5,color:Colors.red),
-//                   icon: Icon(Icons.adb),
-//                   prefixIcon: Icon(Icons.person),
-//                   prefixText: "Name :",
-//                   labelText: "Nama Lengkap : ",
-//                   hintText: "Isi Nama lengkap loh..",
-//                   hintStyle:TextStyle( fontSize: 12 ),
-//                   prefixStyle: TextStyle(color:Colors.blue,fontWeight: FontWeight.bold),
-//                   border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))
-//                 ),
-//                 maxLength: 10,
-//                 onChanged: (value){
-//                   setState(() {
-
-//                   });
-//                 },
-//                 controller: controller,
-//               ),
-//               Text(controller.text)
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// Materi Card
-
 // class MyApp extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
-//       home: Scaffold(
-//           backgroundColor: Colors.green,
-//           body: Container(
-//               margin: EdgeInsets.all(10),
-//               child: ListView(children: <Widget>[
-//                 buildCard(Icons.account_box,'kontak'),
-//                 buildCard(Icons.add_call,'phone')
-//               ]))),
+//       home: MainPage(),
 //     );
-//   }
-
-//   Card buildCard(IconData iconData,String text) {
-//     return Card(
-//                 elevation: 5,
-//                   child: Row(
-//                 children: <Widget>[
-//                   Container(
-//                       margin: EdgeInsets.all(5),
-//                       child: Icon(iconData),color: Colors.amber,),
-//                   Text(text),
-//                 ],
-//               ));
 //   }
 // }
 
-// class MyApp extends StatelessWidget {
+// class MainPage extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
 //       home: Scaffold(
 //         appBar: AppBar(
-//           leading: Icon(
-//             Icons.adb,
-//             color: Colors.white,
-//           ),
-//           title: Text(
-//             'Appbar Example',
-//             style: TextStyle(color: Colors.white),
-//           ),
+//           title: Text('Mobile App',style: TextStyle(color:Colors.white),),
+//           leading: Icon(Icons.adb,color: Colors.white,),
 //           actions: <Widget>[
-//             IconButton(icon: Icon(Icons.settings), onPressed: () {}),
-//             IconButton(icon: Icon(Icons.exit_to_app), onPressed: () {})
+//             IconButton(icon: Icon(Icons.account_box), onPressed: (){}),
+//             IconButton(icon: Icon(Icons.settings), onPressed: (){})
 //           ],
-//           flexibleSpace: Container(
+
+//           backgroundColor: Color(0XFF8C062F),
+//         ),
+//         body: Stack(children: <Widget>[
+//           Container(
 //             decoration: BoxDecoration(
-//                 gradient: LinearGradient(
-//                   colors: [Color(0xff0096ff), Color(0xff6610f)],
-//                   begin: FractionalOffset.topLeft,
-//                   end: FractionalOffset.bottomRight,
-//                 ),
-//                 image: DecorationImage(
-//                     image: AssetImage("images/pattern1.png"),
-//                     fit: BoxFit.none,
-//                     repeat: ImageRepeat.repeat)),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// pengunaan Navigasi multipage/Screen
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(home: Login_page(),
-
-//     );
-//   }
-// }
-
-//Dragable,Dragtarget,sizeBox,Material
-
-// class MyApp extends StatelessWidget {
-//   Color color1 = Colors.red;
-//   Color color2 = Colors.amber;
-//   Color targetColor;
-//   bool isAccepted = false;
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text('Latihan dragable'),
-//         ),
-//         body: Column(
-//             mainAxisAlignment: MainAxisAlignment.spaceAround,
-//             children: <Widget>[
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                 children: <Widget>[
-//                   Draggable<Color>(
-//                     data: color1,
-//                     child: SizedBox(
-//                         width: 50,
-//                         height: 50,
-//                         child: Material(
-//                           color: color1,
-//                           shape: StadiumBorder(),
-//                           elevation: 3,
-//                         )),
-
-//                     childWhenDragging: SizedBox(
-//                         width: 50,
-//                         height: 50,
-//                         child: Material(
-//                           color: Colors.black12,
-//                           shape: StadiumBorder(),
-//                           elevation: 3,
-//                         )),
-//                         // feedback itu bentuk si lingkaran itu ketika saya drag
-//                     feedback: SizedBox(
-//                         width: 50,
-//                         height: 50,
-//                         child: Material(
-//                           color: color1.withOpacity(0.2),
-//                           shape: StadiumBorder(),
-//                           elevation: 3,
-//                         )),
-//                   ),
-//                   Draggable<Color>(
-//                     data: color2,
-//                     child: SizedBox(
-//                         width: 50,
-//                         height: 50,
-//                         child: Material(
-//                           color: color2,
-//                           shape: StadiumBorder(),
-//                           elevation: 3,
-//                         )),
-
-//                     childWhenDragging: SizedBox(
-//                         width: 50,
-//                         height: 50,
-//                         child: Material(
-//                           color: Colors.black12,
-//                           shape: StadiumBorder(),
-//                           elevation: 3,
-//                         )),
-//                     feedback: SizedBox(
-//                         width: 50,
-//                         height: 50,
-//                         child: Material(
-//                           color: color1.withOpacity(0.2),
-//                           shape: StadiumBorder(),
-//                           elevation: 3,
-//                         )),
-//                   )
-//                 ],
-//               ),
-//               DragTarget<Color>(
-
-//                 onWillAccept: (value) => true,
-//                  onAccept: (value) {
-//                   isAccepted = true;
-//                   targetColor=value;
-//                 },
-//                 builder: ( context,candidates,rejected){
-//                   return (isAccepted) ? SizedBox(
-//                         width: 100,
-//                         height: 100,
-//                         child: Material(
-//                           color: targetColor,
-//                           shape: StadiumBorder(),
-
-//                         ),
-//                   ) : SizedBox (
-//                         width: 100,
-//                         height: 100,
-//                         child: Material(
-//                         color:Colors.black12,
-//                         shape: StadiumBorder(),
-//                         )
-//                   );
-
-//                 },
-//               )
-//             ]),
-//       ),
-//     );
-//   }
-// }
-
-// penggunaan spacer()
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//         home: Scaffold(
-//             appBar: AppBar(
-//               title: Text('Spacer Widget'),
+//               gradient: LinearGradient(
+//                   colors: [Color(0xFFFE5788), Color(0xFFF56D5D)],
+//                   begin: Alignment.topCenter,
+//                   end: Alignment.bottomCenter),
 //             ),
-//             body: Center(
-//               child: Row(
-//                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly
-//                 children: <Widget>[
-//                   Spacer(flex:1),
-//                   Container(width: 80, height: 80, color: Colors.red),
-//                   Spacer(flex:2),
-//                   Container(width: 80, height: 80, color: Colors.green),
-//                   Spacer(flex: 3),
-//                   Container(width: 80, height: 80, color: Colors.blue)
-//                 ],
-//               ),
-//             )));
+//           ),
+//           Center(
+//               child: SizedBox(
+//             width: MediaQuery.of(context).size.width * 0.8,
+//             height: MediaQuery.of(context).size.height * 0.7,
+//             child: Card(
+//                 elevation: 10,
+//                 child: Stack(children: <Widget>[
+//                   Opacity(
+//                     opacity: 0.7,
+//                     child: Container(
+//                       decoration: BoxDecoration(
+//                           borderRadius: BorderRadius.circular(5),
+//                           image: DecorationImage(
+//                               image: NetworkImage(
+//                                   'https://www.toptal.com/designers/subtlepatterns/patterns/memphis-mini.png'),
+//                               fit: BoxFit.cover)),
+//                     ),
+//                   ),
+//                   Container(
+//                     height: MediaQuery.of(context).size.height * 0.35,
+
+//                     // width: MediaQuery.of(context).size.width * 0.7,
+//                     decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.only(
+//                             topLeft: Radius.circular(5),
+//                             topRight: Radius.circular(5)),
+//                         image: DecorationImage(
+//                             image: NetworkImage(
+//                                 'https://cdn.pixabay.com/photo/2018/01/20/08/33/sunset-3094078_960_720.jpg'),
+//                             fit: BoxFit.cover)),
+//                   ),
+//                   Container(
+//                     margin: EdgeInsets.fromLTRB(20,
+//                         50+ MediaQuery.of(context).size.height * 0.35, 20, 20),
+//                     child: Center(
+//                       child: Column(children: <Widget>[
+//                         Text('Beatiful sunset at paddy Field',
+//                         maxLines: 2,
+//                         textAlign: TextAlign.center,
+//                         style:
+//                         TextStyle(color: Color(0XFFF56D5D), fontSize: 25)),
+//                         Container(
+//                           margin: EdgeInsets.fromLTRB(0, 20, 0, 15),
+//                           child: Row( mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+//                             Text('Post on  ',
+//                           style:
+//                           TextStyle(color: Colors.grey, fontSize: 12)),
+//                           Text(' 30 Desember 2020',
+//                           style:
+//                           TextStyle(color: Color(0XFFF56D5D), fontSize: 12,)),
+//                           ],),
+//                         ),
+//                         Row(children:<Widget>[
+//                           Spacer(flex: 10),
+//                           // Icon
+//                           Icon(Icons.thumb_up,size:18, color: Colors.grey,),
+//                           Spacer(flex: 1,),
+//                           // text
+//                           Text('99'),
+//                           Spacer(flex: 5,),
+//                           // Icon
+//                           Icon(Icons.comment,size:18,color:Colors.grey),
+//                           Spacer(flex: 1,),
+//                           // text
+//                           Text('888'),
+//                           Spacer(flex: 10,),
+//                         ])
+//                       ]),
+//                     ),
+//                   )
+//                 ])),
+//           ))
+//         ]),
+//       ),
+//     );
 //   }
 // }
-// belajar ImageWidget
 
 // class MyApp extends StatelessWidget {
 //   @override
@@ -342,27 +296,46 @@ class MainPage extends StatelessWidget {
 //     return MaterialApp(
 //       home: Scaffold(
 //         appBar: AppBar(
-//           title: Text('Latihan Image'),
+//           title: Text('latihan membuat button'),
 //         ),
 //         body: Center(
-//           child: Container(
-//             color: Colors.black,
-//             width: 200,
-//             height: 200,
-//             padding: EdgeInsets.all(5),
-//             child: Image(
+//           child: Column(
+//               mainAxisAlignment: MainAxisAlignment.spaceAround,
+//               children: <Widget>[
+//                 RaisedButton(
+//                     color: Colors.amber,
+//                     child: Text('Raised Button'),
+//                     shape: StadiumBorder(),
+//                     onPressed: () {}),
 
-//               // Sekarang Menggunakan AssetImage
-//               image: AssetImage("images/ironman.jpg"),
-//               fit: BoxFit.contain,
-//               repeat:ImageRepeat.repeat ,
-//               // ini menggunakan NetworkImage
-//               // image: NetworkImage(
-//               //     'https://upload.wikimedia.org/wikipedia/commons/2/23/20190106_%28NEWSEN%29_%EB%B8%94%EB%9E%99%ED%95%91%ED%81%AC%28BLACKPINK%29%2C_%EC%88%98%EC%A4%8D%EC%9D%80_%EB%A7%8E%EC%9D%80_%EC%86%8C%EB%85%80%EC%A7%80%EB%A7%8C_%EB%8F%8B%EB%B3%B4%EC%9D%B4%EB%8A%94_%EC%95%84%EB%A6%84%EB%8B%A4%EC%9A%B4_%EB%AF%B8%EB%AA%A8_%28Golden_Disc_Awards_2019%29_%284%29.jpg'),
-//               // fit: BoxFit.contain,
-//               // repeat: ImageRepeat.repeat,
-//             ),
-//           ),
+//                 Material(
+//                  elevation: 3,
+//                  borderRadius:BorderRadius.circular(20),
+//                 child: Container(
+//                     width: 150,
+//                     height: 40,
+//                     // color: Colors.transparent,
+//                     decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(20),
+//                     gradient: LinearGradient(
+//                     colors: [Colors.purple, Colors.pink],
+//                     begin: Alignment.topCenter,
+//                     end: Alignment.bottomCenter)),
+//                     child: Material(
+//                       borderRadius: BorderRadius.circular(20),
+//                       color: Colors.transparent,
+//                       child: InkWell(
+//                         splashColor: Colors.amber,
+//                         onTap: (){},
+//                         borderRadius: BorderRadius.circular(20),
+//                         child: Center(
+//                           child: Text('My button',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),
+//                         )),
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ]),
 //         ),
 //       ),
 //     );
